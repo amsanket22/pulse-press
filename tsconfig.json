@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "target": "ES2018",
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "outDir": "./dist", // Adjust the output directory
+        "baseUrl": "./",
+        "paths": {
+            "@/*": ["resources/js/*"] // Adjust the path to your source directory
+        },
+        "lib": ["ESNext", "DOM"],
+        "typeRoots": ["./node_modules/@types"],
+        "types": ["vite/client", "react", "react-dom"], // Add more types if needed
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true,
+        "jsx": "react-jsx",
+        "jsxImportSource": "react"
+    },
+    "include": ["src/**/*.tsx", "src/**/*.ts", "src/**/*.d.ts"],
+    "exclude": ["node_modules"]
+}
