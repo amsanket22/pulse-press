@@ -175,8 +175,8 @@ const NewsSearch = () => {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200">
-                                {selectedArticles.map((article) => (
-                                    <tr key={article.id}>
+                                {selectedArticles.map((article, index) => (
+                                    <tr key={index}>
                                         <td className=" py-4 pl-4 pr-3 text-sm font-medium  text-gray-900 sm:pl-0">
                                             {article.id}
                                         </td>
