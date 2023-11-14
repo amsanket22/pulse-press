@@ -22,7 +22,6 @@ class NewsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'provider' => 'required|in:guardian',
             'keyword' => 'string|required'
         ];
     }
@@ -33,7 +32,6 @@ class NewsRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'provider' => $this->provider,
             'keyword' => $this->keyword,
 
         ]);

@@ -16,5 +16,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('v1')->group(function () {
-    Route::get('search/{provider}/{keyword}', [NewsController::class, 'search']);
+    Route::get('search/{keyword}', [NewsController::class, 'search']);
 });

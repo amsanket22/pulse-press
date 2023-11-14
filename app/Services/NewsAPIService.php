@@ -7,30 +7,29 @@ use Exception;
 use Illuminate\Support\Facades\Http;
 use Throwable;
 
-class GuardianNewsService implements NewsProviderService
+class NewsAPIService implements NewsProviderService
 {
     protected $apiKey;
 
     public function __construct()
     {
-        $this->apiKey = config('news.guardian.api_key');
+        $this->apiKey = config('news.news_api.api_key');
     }
 
     public function search($query)
     {
         try {
-            $response = Http::get('https://content.guardianapis.com/search', [
+            $response = Http::get('https://newsapi.org/v2/everything', [
                 'q'      => $query,
-                'api-key' => $this->apiKey,
-                'page-size' => 20
+                'apiKey' => $this->apiKey
             ]);
             $response->throw();
 
-            $data = $response->json('response');
-            if ($data && $data['status'] !== 'ok') {
+
+            if ($response->json('status') !== 'ok') {
                 throw new Exception('Invalid API Response');
             }
-            return $this->transform($data['results']);
+            return $this->transform($response->json('articles'));
         } catch (Throwable $th) {
             return [
                 'error' => 'API request failed',
@@ -42,17 +41,18 @@ class GuardianNewsService implements NewsProviderService
     public function transform(array $data)
     {
         $sections = collect($data);
-        return $sections->groupBy('sectionName')->map(function ($items) {
+        return $sections->groupBy('source.name')->map(function ($items) {
             return $items->map(function ($item) {
-                $carbonDate = Carbon::parse($item['webPublicationDate']);
+                $carbonDate = Carbon::parse($item['publishedAt']);
                 $formattedDate = $carbonDate->format('d/m/Y');
                 return [
-                    'id' => $item['id'],
-                    'title' => $item['webTitle'],
-                    'url' => $item['webUrl'],
+                    'id' => $item['source']['id'],
+                    'title' => $item['title'],
+                    'url' => $item['url'],
                     'publicationDate' => $formattedDate,
-                    'sectionName' => $item['sectionName'],
-                    'source' => 'Guardian'
+                    'sectionName' => $item['source']['name'],
+                    'source' => 'News API'
+
                 ];
             });
         })->values()->toArray();

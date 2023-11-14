@@ -3,21 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\NewsRequest;
+use App\Http\Resources\GuardianSectionResource;
+use App\Http\Resources\NewsAPISectionResource;
 use App\Http\Resources\NewsSectionResource;
+use App\Services\GuardianNewsService;
+use App\Services\NewsAPIService;
 
 class NewsController extends Controller
 {
-    public function search(NewsRequest $request, string $provider, string $keyword)
+    public function search(NewsRequest $request, string $keyword)
     {
-        //Dynamic Class Name
-        $providerClass = "App\\Services\\" . ucfirst($provider) . "NewsService";
-        if (class_exists($providerClass)) {
-            $newsProviderService = resolve($providerClass);
-            $data = $newsProviderService->search($keyword);
-            $newsSections = new NewsSectionResource(collect($data['results']));
-            return response()->json($newsSections);
-        } else {
-            return response()->json(['error' => 'Invalid news provider'], 400);
-        }
+        $guardianNews = resolve(GuardianNewsService::class)->search($keyword);
+
+        $newsApiNews = resolve(NewsAPIService::class)->search($keyword);
+
+        return response()->json(array_merge($guardianNews, $newsApiNews));
     }
 }

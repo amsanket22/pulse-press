@@ -76,7 +76,7 @@ const NewsSearch = () => {
     };
 
     return (
-        <div className="flex bg-red-200 h-screen flex-col p-16">
+        <div className="flex flex-col h-screen p-16 bg-red-200">
             <div className="flex justify-center">
                 <div className="block w-1/4">
                     <Select
@@ -130,7 +130,7 @@ const NewsSearch = () => {
                                             <button
                                                 onClick={() => pinArticle(data)}
                                                 type="button"
-                                                className="rounded bg-indigo-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                                className="px-2 py-1 text-xs font-semibold text-white bg-indigo-600 rounded shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                             >
                                                 Pin the Article
                                             </button>
@@ -142,7 +142,7 @@ const NewsSearch = () => {
                     />
                 </div>
             </div>
-            <div className="mt-8 bg-white p-2 rounded-md flow-root">
+            <div className="flow-root p-2 mt-8 bg-white rounded-md">
                 <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                         <table className="min-w-full divide-y divide-gray-300">
@@ -172,30 +172,40 @@ const NewsSearch = () => {
                                     >
                                         Date
                                     </th>
+                                    <th
+                                        scope="col"
+                                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                    >
+                                        Action
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200">
                                 {selectedArticles.map((article, index) => (
                                     <tr key={index}>
-                                        <td className=" py-4 pl-4 pr-3 text-sm font-medium  text-gray-900 sm:pl-0">
+                                        <td className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
                                             {article.id}
                                         </td>
-                                        <td className=" py-4 pl-4 pr-3 text-sm font-medium  text-gray-900 sm:pl-0">
+                                        <td className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
                                             {article.title}
                                         </td>
-                                        <td className=" px-3 py-4 text-sm text-gray-500">
+                                        <td className="px-3 py-4 text-sm text-gray-500 ">
                                             <a
-                                                className="underline text-blue-400 font-semibold"
+                                                target="_blank"
+                                                className="font-semibold text-blue-400 underline"
                                                 href={article.url}
                                             >
                                                 Link
                                             </a>
                                         </td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
                                             {article.sectionName}
                                         </td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
                                             {article.publicationDate}
+                                        </td>
+                                        <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                            Remove
                                         </td>
                                     </tr>
                                 ))}
