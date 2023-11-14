@@ -16,10 +16,15 @@ docker run --rm \
     composer install --ignore-platform-reqs
 ```
 I prefer using [NVM](https://github.com/nvm-sh/nvm) for node
-```
-npm i
-sail up -d (make sure docker is running)
-```
+
+`npm i`
+
+`sail up -d` (make sure docker is running)
+
+`npm run dev` (to start vite)
+
+or `npm run build` to build and deploy
+
 
 
 
