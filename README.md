@@ -41,8 +41,6 @@ or `npm run build` to build and deploy
 
 1. use caching mechanism
 2. use database for storage
-3. ability to remove pinned articles
-4. tests
 
 ## Objectives achieved
 1. develop proxy API in Laravel
@@ -51,3 +49,5 @@ or `npm run build` to build and deploy
 4. grouped by section
 5. ability to pin an article
 6. show title, date, section and link of an article
+7. ability to remove pinned article
+8. support for NewsAPI provider
