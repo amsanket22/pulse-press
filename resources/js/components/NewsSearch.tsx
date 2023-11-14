@@ -46,7 +46,7 @@ const NewsSearch = () => {
     }, 300);
 
     const getArticles = (value) => {
-        return axios.get(`/api/v1/search/guardian/${value}`);
+        return axios.get(`/api/v1/search/${value}`);
     };
 
     const handleChange = (value) => {
@@ -68,6 +68,17 @@ const NewsSearch = () => {
             id: data.value,
         };
         const updatedArticles = [...selectedArticles, article];
+        setSelectedArticles(updatedArticles);
+        window.localStorage.setItem(
+            "articles",
+            JSON.stringify(updatedArticles)
+        );
+    };
+
+    const removeArticle = (id) => {
+        const updatedArticles = selectedArticles.filter(
+            (article) => article.id !== id
+        );
         setSelectedArticles(updatedArticles);
         window.localStorage.setItem(
             "articles",
@@ -205,7 +216,14 @@ const NewsSearch = () => {
                                             {article.publicationDate}
                                         </td>
                                         <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                            Remove
+                                            <a
+                                                href="#"
+                                                onClick={() =>
+                                                    removeArticle(article.id)
+                                                }
+                                            >
+                                                Remove
+                                            </a>
                                         </td>
                                     </tr>
                                 ))}
